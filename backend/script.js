@@ -1,5 +1,4 @@
 import express from 'express';
-import { error } from 'node:console';
 import fs from 'node:fs/promises';
 const app = express();
 
@@ -36,10 +35,7 @@ app.post('/characters', async (req, res) => {
         
     try {
         if (IndexCh !== -1) {
-            jsonData.characters[IndexCh] = { id, name, realName, universe };
-    
-            await fs.writeFile('characters.json', JSON.stringify(jsonData, null, 2));
-            res.status(200).json({ message: "Updated" });
+            res.status(401).json({ error: "Unauthorized: [id] doesn't have same value" });
         } else {
             jsonData.characters.push({ id, name, realName, universe });
     
